@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.bibitdev.mynavigation.databinding.FragmentDetailCategoryBinding
+import com.google.android.material.navigation.NavigationBarView
 
 // Menerima data dari category
 class DetailCategoryFragment : Fragment() {
@@ -20,14 +22,29 @@ class DetailCategoryFragment : Fragment() {
         return view
     }
 
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        val dataName = arguments?.getString(CategoryFragment.EXTRA_NAME)
+//        val dataDescription = arguments?.getString(CategoryFragment.EXTRA_STOCK)
+//
+//        binding.tvCategoryName.text = dataName
+//        binding.tvCategoryDescription.text = "Stock : $dataDescription"
+//    }
+
+    // send data with safeargs
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataName = arguments?.getString(CategoryFragment.EXTRA_NAME)
-        val dataDescription = arguments?.getString(CategoryFragment.EXTRA_STOCK)
+        val dataName = DetailCategoryFragmentArgs.fromBundle(arguments as Bundle).name
+        val dataDescription = DetailCategoryFragmentArgs.fromBundle(arguments as Bundle).stock
 
         binding.tvCategoryName.text = dataName
-        binding.tvCategoryDescription.text = "Stock : $dataDescription"
+        binding.tvCategoryDescription.text = "Stock $dataDescription"
+
+        binding.btnHome.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_detailCategoryFragment_to_homeFragment)
+        )
     }
 
     override fun onDestroy() {

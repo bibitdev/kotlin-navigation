@@ -29,17 +29,28 @@ class CategoryFragment : Fragment() {
         return view
     }
 
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        binding.btnCategoryLifestyle.setOnClickListener{
+//            view -> val mBundle = Bundle()
+//            mBundle.putString(EXTRA_NAME, "Lifestyle")
+//            mBundle.putString(EXTRA_STOCK, "7")
+//            view.findNavController().navigate(R.id.action_categoryFragment_to_detailCategoryFragment, mBundle)
+//        }
+//    }
+
+    // mengirim data dengan safeargs
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnCategoryLifestyle.setOnClickListener{
-            view -> val mBundle = Bundle()
-            mBundle.putString(EXTRA_NAME, "Lifestyle")
-            mBundle.putString(EXTRA_STOCK, "7")
-            view.findNavController().navigate(R.id.action_categoryFragment_to_detailCategoryFragment, mBundle)
+        binding.btnCategoryLifestyle.setOnClickListener { view ->
+            val toDetailCategoryFragment = CategoryFragmentDirections.actionCategoryFragmentToDetailCategoryFragment()
+            toDetailCategoryFragment.name = "Lifestyle"
+            toDetailCategoryFragment.stock = 12
+            view.findNavController().navigate(toDetailCategoryFragment)
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
